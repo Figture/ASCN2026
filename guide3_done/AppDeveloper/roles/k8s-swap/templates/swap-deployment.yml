@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swap-deployment
+  labels:
+    app: swap
+    tier: backend
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: swap
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: swap
+        tier: backend
+    spec:
+      containers:
+      - name: swap-cont
+        image: ascnuminho/swap:u24
+        env: # The variables below could be set on a ConfigMap object
+        - name: DB_HOST
+          value: "{{ db_host }}"
+        - name: DB_DATABASE
+          value: "{{ db_database }}"
+        - name: DB_USERNAME
+          value: "{{ db_username }}"
+        - name: DB_PASSWORD
+          value: "{{ db_password }}"
+        - name: SEED
+          value: "{{seed_db}}"
+        ports:
+        - containerPort: 8000
+        
+      

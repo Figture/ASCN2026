@@ -1,0 +1,5 @@
+db_host: swap-db
+db_database: swap
+db_username: swap_user
+db_password: swap_secret
+seed_db: false
